@@ -71,7 +71,8 @@ void draw3D(int camY, int camX, int camZ, int rotX) {
     uint16_t calcZ;
     uint16_t calcX0;
     bool isRed = true;
-    for(uint16_t i = 0; i < 15; i++) {
+
+    for(uint16_t i = 0; i < 10; i++) {
         calcZ = ((camY/z)+120);
         calcX0 = 320;
 
@@ -85,9 +86,12 @@ void draw3D(int camY, int camX, int camZ, int rotX) {
     }
 
     // TODO: fancy algebra to clip line
+
+    // * (1000/cos_cache[rotX])
+
     for(int16_t i = -160+Camera.x%10; i < 160; i+=10) {
         gfx_Line(
-            (i*(45000/(camY/10)))/20 + 160,
+            (i*(45000/(camY/10)))/20 + (1000/cos_cache[rotX]) * 160,
             240,
             i + 160,
             calcZ
